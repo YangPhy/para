@@ -72,7 +72,18 @@ QCDpara = {CF -> (3^2 - 1)/(2 3), CA -> 3};
   t = 2 Log[mu/\[CapitalLambda]QCD]; b0 = 11 - 2/3 nf; 
   b01 = b0/(4 Pi); 1/(b01 t)]
 
-  \[Alpha]s1[mu_, nf_] := 
+\[Alpha]s0[mu_] := 
+ Module[{MC, MB, Mt}, MC = 3/2; MB = 49/10; 
+  Mt = 175; (N[#1, 50] &)[
+   Piecewise[{{\[Alpha]s0[mu, 3], 
+      mu >= 1 && mu < MC}, {\[Alpha]s0[mu, 4], 
+      mu >= MC && mu < MB}, {\[Alpha]s0[mu, 5], 
+      mu >= MB && mu < Mt}, {\[Alpha]s0[mu, 6], 
+      mu >= Mt}, {Print[
+       "Warning: it is dangerous to use the value of \[Alpha]s(Q) \
+when Q < 1 GeV"], mu < 1}}]]]
+
+\[Alpha]s1[mu_, nf_] := 
  Module[{\[CapitalLambda]QCD, t, b0, b1, b01, 
    b11}, \[CapitalLambda]QCD = 
    Piecewise[{{3843/10000, nf == 3}, {3306/10000, 
@@ -81,6 +92,17 @@ QCDpara = {CF -> (3^2 - 1)/(2 3), CA -> 3};
   b1 = 102 - (38 nf)/3; b01 = b0/(4 Pi); b11 = b1/(4 Pi)^2; 
   1/(b01 t) (1 - b11/b01^2 Log[t]/t)]
 
+\[Alpha]s1[mu_] := 
+ Module[{MC, MB, Mt}, MC = 3/2; MB = 49/10; 
+  Mt = 175; (N[#1, 50] &)[
+   Piecewise[{{\[Alpha]s1[mu, 3], 
+      mu >= 1 && mu < MC}, {\[Alpha]s1[mu, 4], 
+      mu >= MC && mu < MB}, {\[Alpha]s1[mu, 5], 
+      mu >= MB && mu < Mt}, {\[Alpha]s1[mu, 6], 
+      mu >= Mt}, {Print[
+       "Warning: it is dangerous to use the value of \[Alpha]s(Q) \
+when Q < 1 GeV"], mu < 1}}]]]
+  
 \[Alpha]s[mu_] := 
  Module[{mc = 1.5, mb = 4.9, mt = 175, 
    mZ = 91.1876, \[Alpha]sZ = 0.1181, nf, NC, CA, TF, 
@@ -111,7 +133,6 @@ QCDpara = {CF -> (3^2 - 1)/(2 3), CA -> 3};
       mb}, { (1/\[Alpha]sC + b0 Log[mu/mc] + 
         b1/b0 Log[1 + (b0 Log[mu/mc])/(1/\[Alpha]sB + b1/b0)])^-1 /. 
       nf -> 3, mu < mc}}]]
-
 
 (* Gauge coupling running *)      
 gISM2[t_, i_] := 
@@ -145,3 +166,93 @@ gIMSSM2[t_, i_, \[Mu]0_: 500] :=
 gISM[q_, i_] := Sqrt[gISM2[Log[q], i]]
 gI2HDM[q_, i_] := Sqrt[gI2HDM2[Log[q], i]]
 gIMSSM[q_, i_, \[Mu]0_: 500] := Sqrt[gIMSSM2[Log[q], i, \[Mu]0]]
+
+(* Running mass for charm quark and bottom quark *)
+LOmcMS4[mu_] := 
+  Module[{mc3GeV, 
+    nf, \[Beta]0, \[Beta]1, \[Beta]2, \[Gamma]0, \[Gamma]1, \[Gamma]2,
+     c, c0, c1, c2, b1, b2, x, x0, cx, cx0}, nf = 4; 
+   mc3GeV = 1012/1000; \[Beta]0 = 1/4 (11 - (2 nf)/3); \[Beta]1 = 
+    1/16 (102 - (38 nf)/3); \[Beta]2 = 
+    1/64 (2857/2 - (5033 nf)/18 + 325/54 nf^2); 
+   b1 = \[Beta]1/\[Beta]0; 
+   b2 = \[Beta]2/\[Beta]0; \[Gamma]0 = 1; \[Gamma]1 = 
+    1/16 (202/3 - (20 nf)/9); \[Gamma]2 = 
+    1/64 (1249 + (-2216/27 - 160/3 Zeta[3]) nf - (140 nf^2)/81); 
+   c0 = \[Gamma]0/\[Beta]0; c1 = \[Gamma]1/\[Beta]0; 
+   c2 = \[Gamma]2/\[Beta]0; x0 = \[Alpha]s0[3, 4]/\[Pi]; 
+   x = \[Alpha]s0[mu, 4]/\[Pi]; cx0 = x0^c0 ; cx = x^c0 ; 
+   mc3GeV cx/cx0];
+LOmcMS5[mu_] := 
+  Module[{mcMB, MB, 
+    nf, \[Beta]0, \[Beta]1, \[Beta]2, \[Gamma]0, \[Gamma]1, \[Gamma]2,
+     c, c0, c1, c2, b1, b2, x, x0, cx, cx0}, nf = 5; MB = 49/10; 
+   mcMB = LOmcMS4[MB]; \[Beta]0 = 1/4 (11 - (2 nf)/3); \[Beta]1 = 
+    1/16 (102 - (38 nf)/3); \[Beta]2 = 
+    1/64 (2857/2 - (5033 nf)/18 + 325/54 nf^2); 
+   b1 = \[Beta]1/\[Beta]0; 
+   b2 = \[Beta]2/\[Beta]0; \[Gamma]0 = 1; \[Gamma]1 = 
+    1/16 (202/3 - (20 nf)/9); \[Gamma]2 = 
+    1/64 (1249 + (-2216/27 - 160/3 Zeta[3]) nf - (140 nf^2)/81); 
+   c0 = \[Gamma]0/\[Beta]0; c1 = \[Gamma]1/\[Beta]0; 
+   c2 = \[Gamma]2/\[Beta]0; x0 = \[Alpha]s0[MB, 5]/\[Pi]; 
+   x = \[Alpha]s0[mu, 5]/\[Pi]; cx0 = x0^c0 ; cx = x^c0 ; mcMB cx/cx0];
+LOmcMS6[mu_] := 
+  Module[{mcMt, Mt, 
+    nf, \[Beta]0, \[Beta]1, \[Beta]2, \[Gamma]0, \[Gamma]1, \[Gamma]2,
+     c, c0, c1, c2, b1, b2, x, x0, cx, cx0}, nf = 6; Mt = 175; 
+   mcMt = LOmcMS5[Mt]; \[Beta]0 = 1/4 (11 - (2 nf)/3); \[Beta]1 = 
+    1/16 (102 - (38 nf)/3); \[Beta]2 = 
+    1/64 (2857/2 - (5033 nf)/18 + 325/54 nf^2); 
+   b1 = \[Beta]1/\[Beta]0; 
+   b2 = \[Beta]2/\[Beta]0; \[Gamma]0 = 1; \[Gamma]1 = 
+    1/16 (202/3 - (20 nf)/9); \[Gamma]2 = 
+    1/64 (1249 + (-2216/27 - 160/3 Zeta[3]) nf - (140 nf^2)/81); 
+   c0 = \[Gamma]0/\[Beta]0; c1 = \[Gamma]1/\[Beta]0; 
+   c2 = \[Gamma]2/\[Beta]0; x0 = \[Alpha]s0[Mt, 6]/\[Pi]; 
+   x = \[Alpha]s0[mu, 6]/\[Pi]; cx0 = x0^c0 ; cx = x^c0 ; mcMt cx/cx0];
+LOmcMS[mu_] := 
+  Module[{MC, MB, Mt}, MC = 3/2; MB = 49/10; Mt = 175; 
+   Piecewise[{{LOmcMS4[mu], mu >= MC && mu < MB}, {LOmcMS5[mu], 
+       mu >= MB && mu < Mt}, {LOmcMS6[mu], 
+       mu >= Mt}, {Print[
+        "Warning: we do not consider the running mass \
+\!\(\*SubscriptBox[\(m\), \(c\)]\)(Q) for Q < 1.5 GeV"], mu < MC}}] //
+     N[#, 50] &];
+     
+LOmbMS5[mu_] := 
+  Module[{mb10GeV, MB, 
+    nf, \[Beta]0, \[Beta]1, \[Beta]2, \[Gamma]0, \[Gamma]1, \[Gamma]2,
+     c, c0, c1, c2, b1, b2, x, x0, cx, cx0}, nf = 5; MB = 49/10; 
+   mb10GeV = 3609/1000; \[Beta]0 = 1/4 (11 - (2 nf)/3); \[Beta]1 = 
+    1/16 (102 - (38 nf)/3); \[Beta]2 = 
+    1/64 (2857/2 - (5033 nf)/18 + 325/54 nf^2); 
+   b1 = \[Beta]1/\[Beta]0; 
+   b2 = \[Beta]2/\[Beta]0; \[Gamma]0 = 1; \[Gamma]1 = 
+    1/16 (202/3 - (20 nf)/9); \[Gamma]2 = 
+    1/64 (1249 + (-2216/27 - 160/3 Zeta[3]) nf - (140 nf^2)/81); 
+   c0 = \[Gamma]0/\[Beta]0; c1 = \[Gamma]1/\[Beta]0; 
+   c2 = \[Gamma]2/\[Beta]0; x0 = \[Alpha]s0[10, 5]/\[Pi]; 
+   x = \[Alpha]s0[mu, 5]/\[Pi]; cx0 = x0^c0 ; cx = x^c0 ; 
+   mb10GeV cx/cx0];
+LOmbMS6[mu_] := 
+  Module[{mbMt, Mt, 
+    nf, \[Beta]0, \[Beta]1, \[Beta]2, \[Gamma]0, \[Gamma]1, \[Gamma]2,
+     c, c0, c1, , c2, b1, b2, x, x0, cx, cx0}, nf = 6; Mt = 175; 
+   mbMt = LOmbMS5[Mt]; \[Beta]0 = 1/4 (11 - (2 nf)/3); \[Beta]1 = 
+    1/16 (102 - (38 nf)/3); \[Beta]2 = 
+    1/64 (2857/2 - (5033 nf)/18 + 325/54 nf^2); 
+   b1 = \[Beta]1/\[Beta]0; 
+   b2 = \[Beta]2/\[Beta]0; \[Gamma]0 = 1; \[Gamma]1 = 
+    1/16 (202/3 - (20 nf)/9); \[Gamma]2 = 
+    1/64 (1249 + (-2216/27 - 160/3 Zeta[3]) nf - (140 nf^2)/81); 
+   c0 = \[Gamma]0/\[Beta]0; c1 = \[Gamma]1/\[Beta]0; 
+   c2 = \[Gamma]2/\[Beta]0; x0 = \[Alpha]s0[Mt, 6]/\[Pi]; 
+   x = \[Alpha]s0[mu, 6]/\[Pi]; cx0 = x0^c0 ; cx = x^c0 ; mbMt cx/cx0];
+LOmbMS[mu_] := 
+  Module[{MB, Mt}, MB = 49/10; Mt = 175; 
+   Piecewise[{{LOmbMS5[mu], mu >= MB && mu < Mt}, {LOmbMS6[mu], 
+       mu >= Mt}, {Print[
+        "Warning: we do not consider the running mass \
+\!\(\*SubscriptBox[\(m\), \(b\)]\)(Q) for Q < 4.9 GeV"], mu < MB}}] //
+     N[#, 50] &];
