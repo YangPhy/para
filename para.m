@@ -238,7 +238,7 @@ LOmbMS5[mu_] :=
 LOmbMS6[mu_] := 
   Module[{mbMt, Mt, 
     nf, \[Beta]0, \[Beta]1, \[Beta]2, \[Gamma]0, \[Gamma]1, \[Gamma]2,
-     c, c0, c1, , c2, b1, b2, x, x0, cx, cx0}, nf = 6; Mt = 175; 
+     c, c0, c1, c2, b1, b2, x, x0, cx, cx0}, nf = 6; Mt = 175; 
    mbMt = LOmbMS5[Mt]; \[Beta]0 = 1/4 (11 - (2 nf)/3); \[Beta]1 = 
     1/16 (102 - (38 nf)/3); \[Beta]2 = 
     1/64 (2857/2 - (5033 nf)/18 + 325/54 nf^2); 
