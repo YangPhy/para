@@ -56,9 +56,9 @@ SMpara = {EL -> Sqrt[4 \[Pi] \[Alpha]E] , g -> EL/SW, CW -> MW/MZ,
    SW -> Sqrt[1 - MW^2/MZ^2], 
    MW -> Sqrt[
     MZ^2/2 + Sqrt[MZ^4/4 - (\[Alpha]E \[Pi] MZ^2)/(GF Sqrt[2])]]};
-SMnum = N[{\[Alpha]E -> 50000/6625349, GF -> 116639 10^-10, Mt -> 173,
+SMnum = N[{\[Alpha]E -> 50000/6625349, GF -> 116639 10^-10, Mt -> 173,MB->9/2,MC->3/2,
      MA -> 0, MZ -> 91188 10^-3, MH -> 125, MM -> 105 10^-3, 
-    ME -> 511 10^-6, GammaZ -> 24952 10^-4}, 50];
+    ME -> 511 10^-6, GammaZ -> 24952 10^-4, GammaW -> 2085 10^-3,Vcb-> 41 10^-3}, 50];
 SMinput = 
   Join[{g -> EL/SW} /. SMpara1 /. SMpara2 /. SMnum, 
    SMpara1 /. SMpara2 /. SMnum, SMpara2 /. SMnum, SMnum];
