@@ -7,7 +7,7 @@ Print [Style[" \[Bullet] T. Han, Y. Ma, and K. Xie, Phys.Rev.D 103 (2021) 3, L03
 
 
 (* plot settings *)
-SetOptions[{Plot, LogPlot, LogLogPlot, LogLinearPlot}, 
+SetOptions[{Plot, LogPlot, LogLogPlot, LogLinearPlot,Histogram}, 
   AspectRatio -> 0.6, Frame -> True, ImageSize -> Large,
   LabelStyle -> {FontSize -> 22, FontFamily -> "Times", Black}, 
   FrameStyle -> Directive[Black, 22]];
@@ -62,6 +62,10 @@ SMnum = N[{\[Alpha]E -> 50000/6625349, GF -> 116639 10^-10, Mt -> 173,MB->9/2,MC
 SMinput = 
   Join[{g -> EL/SW} /. SMpara1 /. SMpara2 /. SMnum, 
    SMpara1 /. SMpara2 /. SMnum, SMpara2 /. SMnum, SMnum];
+SMinput2=SMinput/. {CW -> cw, SW -> sw, MW -> mw, MB -> mb, MC -> mc, MA -> ma, 
+  MZ -> mz, MH -> mh, MM -> mm, ME -> me}
+FormCalcSM = {MC2 -> mc^2, Alfa -> \[Alpha]E, Alfa2 -> \[Alpha]E^2, 
+  MZ2 -> mz^2,MW2-> mw^2,SW2 -> sw^2,CW2 -> cw^2}
 
 (* QCD parameters *)
 QCDpara = {CF -> (3^2 - 1)/(2 3), CA -> 3};
