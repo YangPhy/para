@@ -4,7 +4,7 @@ Print[Style["para: ", "Text", Bold],
 Print["by Yang Ma (March 2020)"];
 Print["If you use para in your research, please cite"];
 Print [Style[" \[Bullet] T. Han, Y. Ma, and K. Xie, Phys.Rev.D 103 (2021) 3, L031301, arXiv:2007.14300.","Text"]];
-
+Print [Style[" \[Bullet] T. Han, A. K. Leibovich, Y. Ma and X.-Z. Tan, JHEP 08 (2022) 073, arXiv:2202.08273.","Text"]];
 
 (* plot settings *)
 SetOptions[{Plot, LogPlot, LogLogPlot, LogLinearPlot,Histogram}, 
