@@ -8,11 +8,11 @@ Print [Style[" \[Bullet] T. Han, A. K. Leibovich, Y. Ma and X.-Z. Tan, JHEP 08 (
 
 (* plot settings *)
 SetOptions[{Plot, LogPlot, LogLogPlot, LogLinearPlot,ContourPlot,ListContourPlot,Histogram}, 
-  AspectRatio -> 0.6, Frame -> True, ImageSize -> Large,
+  AspectRatio -> 0.6, Frame -> True, ImageSize -> 600,
   LabelStyle -> {FontSize -> 22, FontFamily -> "Times", Black}, 
   FrameStyle -> Directive[Black, 22]];
-SetOptions[{ListPlot, ListLogPlot, ListLogLogPlot, ListLogLinearPlot},
-   AspectRatio -> 0.6, Frame -> True, ImageSize -> Large, 
+SetOptions[{ListPlot, ListStepPlot, ListLogPlot, ListLogLogPlot, ListLogLinearPlot},
+   AspectRatio -> 0.6, Frame -> True, ImageSize -> 600, 
   Joined -> True,
   LabelStyle -> {FontSize -> 22, FontFamily -> "Times", Black}, 
   FrameStyle -> Directive[Black, 22]];
@@ -21,9 +21,10 @@ CMYK[c_, m_, y_, k_] := CMYKColor[c/255, m/255, y/255, k/255];
 hexToRGB[hex_] := 
  RGBColor @@ (N[FromDigits[StringJoin[#], 12]/255] & /@ 
     Partition[Characters[hex], 2])
-{c1, c2, c3, c4, c5, c6, c7, c8} = {RGB[228, 26, 28], 
+{c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11} = {RGB[228, 26, 28], 
    RGB[77, 175, 74], RGB[55, 126, 184], RGB[255, 127, 0], 
-   RGB[152, 78, 163], Black, Blue, Magenta // Lighter};
+   RGB[152, 78, 163], Black, Blue, RGB[41, 143, 255], 
+   RGB[128, 0, 128], RGB[166,86,40], Magenta // Lighter};
 
 (* tab manipulations *)
 tabRatio[tab1_, tab2_] := 
@@ -32,6 +33,9 @@ tabRatio[tab1_, tab2_] :=
     tab1 // Length}];
 tabSum2[tab1_, tab2_] := 
   Table[{tab1[[n, 1]], tab1[[n, 2]] + tab2[[n, 2]]}, {n, 1, 
+    tab1 // Length}];
+tabDiff[tab1_, tab2_] := 
+  Table[{tab1[[n, 1]], tab1[[n, 2]] - tab2[[n, 2]]}, {n, 1, 
     tab1 // Length}];
 tabSum3[tab1_, tab2_, tab3_] := 
   Table[{tab1[[n, 1]], 
