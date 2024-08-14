@@ -44,6 +44,10 @@ tabSum3[tab1_, tab2_, tab3_] :=
 tabAvg2[tab1_, tab2_] := 
   Table[{tab1[[n, 1]], (tab1[[n, 2]] + tab2[[n, 2]])/2}, {n, 1, 
     tab1 // Length}];
+tabHalf[tab_] := 
+  Table[{tab[[n, 1]], tab[[n, 2]]/2}, {n, 1, tab // Length}];
+tabSquare[tab_] := 
+  Table[{tab[[n, 1]], tab[[n, 2]]^2}, {n, 1, tab // Length}];
 GeV2TeV[tab_] := 
   Table[{tab[[n, 1]]/1000, tab[[n, 2]]}, {n, 1, tab // Length}];
 pb2fb[tab_] := 
