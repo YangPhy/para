@@ -56,7 +56,7 @@ fb2pb[tab_] :=
   Table[{tab[[n, 1]], tab[[n, 2]]/1000}, {n, 1, tab // Length}];
 
 (* SM parameters *)
-SMpara1 = {CW -> MW/MZ, SW -> Sqrt[1 - MW^2/MZ^2], CA -> 3};
+SMpara1 = {CW -> MW/MZ, SW -> Sqrt[1 - MW^2/MZ^2], CA -> 3, vev->1/ Sqrt[Sqrt[2]*GF]};
 SMpara2 = {EL -> Sqrt[4 \[Pi] \[Alpha]E] , 
    MW -> Sqrt[
     MZ^2/2 + Sqrt[MZ^4/4 - (\[Alpha]E \[Pi] MZ^2)/(GF Sqrt[2])]]};
@@ -65,7 +65,7 @@ SMpara = {EL -> Sqrt[4 \[Pi] \[Alpha]E] , g -> EL/SW, CW -> MW/MZ,
    MW -> Sqrt[
     MZ^2/2 + Sqrt[MZ^4/4 - (\[Alpha]E \[Pi] MZ^2)/(GF Sqrt[2])]]};
 SMnum = N[{\[Alpha]E -> 2/265, GF -> 116639 10^-10, Mt -> 172,MB->47/10,MC->3/2,
-     MA -> 0, MZ -> 91188 10^-3, MH -> 125, MM -> 10566 10^-5,
+     MA -> 0, MZ -> 91188 10^-3, MH -> 125, MTA->1777/1000, MM -> 10566 10^-5,
     ME -> 511 10^-6, GammaZ -> 24414 10^-4, GammaW -> 20476 10^-4,GammaT-> 150834 10^-5,GammaH-> 575309 10^-8,Vcb-> 41 10^-3}, 50];
 SMinput = 
   Join[{g -> EL/SW} /. SMpara1 /. SMpara2 /. SMnum, 
